@@ -82,10 +82,10 @@ function move() {
         }
         return;
     }
-    if (rPadY+PADDLE_HEIGHT/2<ballY-25)
-        rPadY += (ballY-(rPadY+PADDLE_HEIGHT/2))/7;
-    if (rPadY+PADDLE_HEIGHT/2>ballY+25)
-        rPadY -= ((rPadY+PADDLE_HEIGHT/2)-ballY)/7;
+    if (rPadY+PADDLE_HEIGHT/2<ballY-20)
+        rPadY += (ballY-(rPadY+PADDLE_HEIGHT/2))/6;
+    if (rPadY+PADDLE_HEIGHT/2>ballY+20)
+        rPadY -= ((rPadY+PADDLE_HEIGHT/2)-ballY)/6;
 
     if (ballX >= canv.width-20){
         if (ballY>rPadY && ballY <rPadY+PADDLE_HEIGHT) {
