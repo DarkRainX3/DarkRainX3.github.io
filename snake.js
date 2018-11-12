@@ -1,8 +1,14 @@
+/* eslint-disable quotes */
+/* eslint semi: ["error", "always"] */
+var canv;
+var ctx;
+var pause = false;
 window.onload = function() {
     canv = document.getElementById("gc");
-    ctx = canv.getContext("2d");    //makes obj that has methods for drawing
+    ctx = canv.getContext("2d"); // makes obj that has methods for drawing
     // on canvas, "2d" has various shapes
     document.addEventListener("keydown",keyPush);
+    canv.addEventListener('mousedown', handleMouseClick);
     //interval = setInterval(game,1000/speed);
     setTimeout(game,200);
     var speedout = document.getElementById('speed');
@@ -17,7 +23,23 @@ ay = Math.floor(Math.random()*tc);
 trail = []; //snake position
 tail = 3;   //lenght of snake
 var score = 0;
+
+function handleMouseClick(evt) {
+    if (pause){
+        pause=false;
+        speed = 5;
+        px=py=10;
+        score=0;
+    }
+}
+
 function game() {
+    if (pause){
+        ctx.fillStyle = 'white';
+        ctx.fillText("You Lose! \n Click to Continue", canv.width/2-60,canv.height/2+50);
+        setTimeout(game,200);
+        return;
+    }
     setTimeout(game,1000/speed);
     px+=xv;
     py+=yv;
@@ -41,9 +63,14 @@ function game() {
         ctx.fillRect(trail[i].x*gs-1,trail[i].y*gs-1,gs,gs);
         if(trail[i].x==px && trail[i].y==py){
             tail = 3;
-            speed = 5;
-            score=xv=yv=0;
             speedout.textContent = "Speed: "+(speed-5)+ " Score: "+  score;
+            if (xv!=0 || yv!=0 && pause == false){
+                pause = true;
+                xv=yv=0;
+            }
+            else {
+                pause = false;
+            }
             // clearInterval(interval)
             // interval = setInterval(game,1000/speed);
         }
