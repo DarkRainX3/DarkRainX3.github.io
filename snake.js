@@ -1,5 +1,6 @@
 /* eslint-disable quotes */
 /* eslint semi: ["error", "always"] */
+
 var canv;
 var ctx;
 var pause = false;
@@ -7,21 +8,22 @@ window.onload = function() {
     canv = document.getElementById("gc");
     ctx = canv.getContext("2d"); // makes obj that has methods for drawing
     // on canvas, "2d" has various shapes
-    document.addEventListener("keydown",keyPush);
+    canv.addEventListener("keydown",keyPush);
     canv.addEventListener('mousedown', handleMouseClick);
     //interval = setInterval(game,1000/speed);
     setTimeout(game,200);
     var speedout = document.getElementById('speed');
 }
+
 var speed = 5;  //snake speed
-xv = yv = 0;    // x,y velocity
-px=py=10;   //player position
-gs = 20;   //gridsize
-tc = 20;    //tile count
-ax = Math.floor(Math.random()*tc); // first food
-ay = Math.floor(Math.random()*tc);
-trail = []; //snake position
-tail = 3;   //lenght of snake
+var xv = yv = 0;    // x,y velocity
+var px=py=10;   //player position
+var gs = 20;   //gridsize
+var tc = 20;    //tile count
+var ax = Math.floor(Math.random()*tc); // first food
+var ay = Math.floor(Math.random()*tc);
+var trail = []; //snake position
+var tail = 3;   //lenght of snake
 var score = 0;
 
 function handleMouseClick(evt) {
@@ -36,6 +38,8 @@ function handleMouseClick(evt) {
 function game() {
     if (pause){
         ctx.fillStyle = 'white';
+        // xv=0;
+        // yv=0;
         ctx.fillText("You Lose! \n Click to Continue", canv.width/2-60,canv.height/2+50);
         setTimeout(game,200);
         return;
@@ -121,27 +125,22 @@ function checkPos(x,y) {
     return false;
 }
 function keyPush(e) {
-    if (e.keyCode==37){
-        if(xv==1)
-            return;
+  if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+      e.preventDefault();
+  }
+    if (e.keyCode==37&&xv!=1){
         xv=-1;yv=0;
             return;
     }
-    else if (e.keyCode==38){
-        if(yv==1)
-            return;
+    if (e.keyCode==38&& yv!=1){
         xv=0;yv=-1;
             return;
     }
-    else if (e.keyCode==39){
-        if(xv==-1)
-            return;
+    if (e.keyCode==39&& xv!=-1){
         xv=1;yv=0;
             return;
     }
-    else if (e.keyCode==40){
-        if(yv==-1)
-            return;
+    if (e.keyCode==40&&yv!=-1){
         xv=0;yv=1;
             return;
     }

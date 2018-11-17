@@ -17,11 +17,12 @@
             border-width: thin;
             border-color: white;
         }
+        .output {background: #000000; animation: shiftcolor 5s ease infinite}@keyframes shiftcolor { 0% {background: #ff00dc;} 25% {background: #04FF00;} 75% {background: #00ffff;} 100% {background: #FF00DC;}}
     </style>
 </head>
 <h1 style="color:white">Snake Game</h1>
 <p class="output" id="speedout" style="color:white">Speed:</p>
-<canvas id="gc" class="game" width="400" height="400"></canvas>
+<canvas id="gc" class="game" width="400" height="400" tabindex="1"></canvas>
 <script src="snake.js"></script>
 <br>
 </object>

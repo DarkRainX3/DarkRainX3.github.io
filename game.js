@@ -17,11 +17,14 @@ var lScore = 0;
 var rScore = 0;
 var showWinScreen = false;
 var winner = 0;
+var ball = new Image();
+ball.src = "images/ball.png";
 
 window.onload = function() {
     canv = document.getElementById("gameCanvas");
     ctx = canv.getContext("2d");
     canv.addEventListener('mousedown', handleMouseClick);
+    canv.addEventListener("keydown",keyPush);
     canv.addEventListener('mousemove', function (evt) {
         var mousePos = calcMousePos(evt);
         lPadY=mousePos.y-PADDLE_HEIGHT/2;
@@ -138,9 +141,13 @@ function drawEverything() {
 
     //ball
     ctx.beginPath();
-    ctx.arc(ballX,ballY,10,0,2*Math.PI, false);
+    ctx.drawImage(ball,ballX-10,ballY-10);
+    //ctx.arc(ballX,ballY,10,0,2*Math.PI, false);
+    // var pat = ctx.createPattern(ball,'repeat');
+    // ctx.fillStyle = pat;
+    //ctx.fillStyle="lime";
+    //ctx.fill();
     ctx.fillStyle="lime";
-    ctx.fill();
     ctx.lineWidth = 0;
     ctx.stroke();
     ctx.fillText(lScore,170,200);
@@ -150,4 +157,10 @@ function drawEverything() {
 function colorRect(x,y,w,h,c){
     ctx.fillStyle = c;
     ctx.fillRect(x,y,w,h);
+}
+
+function keyPush(e) {
+  if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+      e.preventDefault();
+  }
 }
